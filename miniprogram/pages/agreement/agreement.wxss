@@ -1,0 +1,30 @@
+.body {
+  padding: 60rpx 30rpx;
+}
+
+view {
+  display: flex;
+  flex-direction: column;
+  font-family: serif;
+}
+
+.title {
+  text-align: center;
+  font-size: 38rpx;
+  margin-bottom: 30rpx;
+}
+
+text {
+  font-family: serif;
+}
+
+.btn {
+  width: 85% !important;
+  background-color: #04a0a5;
+  padding: 20rpx 0;
+  font-weight: 400;
+  border-radius: 40rpx;
+  margin: 0 auto;
+  color: #fff;
+  margin: 60rpx 0 40rpx;
+}

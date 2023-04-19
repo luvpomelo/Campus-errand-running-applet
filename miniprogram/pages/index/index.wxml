@@ -1,0 +1,17 @@
+<swiper indicator-dots="true" indicator-color="grey" indicator-active-color="red" autoplay="true" circular="true" class="banner_body">
+  <swiper-item wx:for="{{ banner }}" wx:key="index" class="banner_item">
+    <image src="{{ item }}" mode="widthFix"></image>
+  </swiper-item>
+</swiper>
+
+<view class="notice" bindtap="handleClickNotice">
+  <image src="../../images/notice.png"></image>
+  <text>关注公众号可享订单推送-接单员请务必添加客服v: 18776585280</text>
+</view>
+
+<view class="grid-list">
+  <view class="grid-item" wx:for="{{ indexConfig }}" wx:key="index" data-url="{{ item.url }}" bindtap="toDetail">
+    <image src="{{ item.icon }}"></image>
+    <text class="text">{{ item.text }}</text>
+  </view>
+</view>

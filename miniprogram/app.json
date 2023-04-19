@@ -1,0 +1,58 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/order/order",
+    "pages/person/person",
+    "pages/getExpress/getExpress",
+    "pages/address/address",
+    "pages/addAddress/addAddress",
+    "pages/selectBuild/selectBuild",
+    "pages/print/print",
+    "pages/run/run",
+    "pages/expressReplace/expressReplace",
+    "pages/expressBusiness/expressBusiness",
+    "pages/lease/lease",
+    "pages/playGame/playGame",
+    "pages/helpMeGive/helpMeGive",
+    "pages/replaceMe/replaceMe",
+    "pages/otherHelp/otherHelp",
+    "pages/updateInfo/updateInfo",
+    "pages/aboutAs/aboutAs",
+    "pages/applyOrder/applyOrder",
+    "pages/agreement/agreement",
+    "pages/receiveLoading/receiveLoading",
+    "components/myButton/myButton",
+    "components/myModal/myModal"
+  ],
+  "window": {
+    "backgroundColor": "#F6F6F6",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#F6F6F6",
+    "navigationBarTitleText": "跑跑乐",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "list": [
+    {
+      "pagePath": "pages/index/index",
+      "text": "首页",
+      "iconPath": "/images/index.png",
+      "selectedIconPath": "/images/index_fill.png"
+    },
+    {
+      "pagePath": "pages/order/order",
+      "text": "订单",
+      "iconPath": "/images/order.png",
+      "selectedIconPath": "/images/order_fill.png"
+    },
+    {
+      "pagePath": "pages/person/person",
+      "text": "我的",
+      "iconPath": "/images/person.png",
+      "selectedIconPath": "/images/person_fill.png"
+    }
+  ]
+  },
+  "sitemapLocation": "sitemap.json",
+  "style": "v2"
+}

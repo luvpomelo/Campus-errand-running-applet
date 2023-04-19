@@ -1,0 +1,54 @@
+.banner_body, .banner_item, .banner_item image {
+  height: 300rpx;
+  width: 100%;
+}
+
+.notice {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  padding: 5rpx 15rpx;
+  margin-top: 10rpx;
+}
+
+.notice image {
+  width: 60rpx;
+  height: 60rpx;
+}
+
+.notice text {
+  font-size: 28rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-left: 30rpx;
+}
+
+.grid-list {
+  display: flex;
+  flex-wrap: wrap;
+  border-left: 1rpx solid #cccaca;
+  border-top: 1rpx solid #cccaca;
+}
+
+.grid-item {
+  width: 33.33%;
+  height: 200rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-right: 1rpx solid #cccaca;
+  border-bottom: 1rpx solid #cccaca;
+  box-sizing: border-box;
+}
+
+.grid-item image {
+  width: 60rpx;
+  height: 60rpx;
+}
+
+.grid-item text {
+  font-size: 30rpx;
+  margin-top: 10rpx;
+}
