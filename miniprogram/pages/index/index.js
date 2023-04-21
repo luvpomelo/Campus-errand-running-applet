@@ -1,5 +1,5 @@
+const db = wx.cloud.database();
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -80,7 +80,18 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    const openid = wx.getStorageSync('openid');
+    if (!openid) {
+      wx.cloud.callFunction({
+        name: 'UserOpenId',
+        success: (res) => {
+          const {
+            openid
+          } = res.result;
+          wx.setStorageSync('openid', openid);
+        }
+      })
+    }
   },
 
   /**

@@ -1,4 +1,5 @@
 // pages/person/person.js
+const db = wx.cloud.database();
 Page({
 
   /**
@@ -14,6 +15,12 @@ Page({
     // null代表从未申请过
     personReceiveState: '',
     admin: false,
+  },
+
+  orderReceiver() {
+    wx.navigateTo({
+        url: '../orderReceiver/orderReceiver',
+    })
   },
 
   applyOrder() {
@@ -37,7 +44,7 @@ Page({
     } else if (personReceiveState === 'fail') {
         wx.showModal({
             title: '提示',
-            content: '您之前提交的申请未通过审核, 您可以继续申请, 如有疑问请联系管理员: 18331092918',
+            content: '您之前提交的申请未通过审核, 您可以继续申请, 如有疑问请联系管理员: 19580768896',
             success: (res) => {
                 const {
                     confirm
@@ -52,7 +59,7 @@ Page({
     } else if (personReceiveState === 'loading') {
         wx.showModal({
             title: '提示',
-            content: '您之前申请的内容正在审核中, 请耐心等待! 如加急审核请添加管理员微信: 18331092918',
+            content: '您之前申请的内容正在审核中, 请耐心等待! 如加急审核请添加管理员微信: 19580768896',
             showCancel: false,
         })
     } else if (personReceiveState === 'null') {
@@ -126,21 +133,67 @@ Page({
       })
   },
 
+   // 判断当前用户是否是管理员
+   getAdminPower() {
+    db.collection('admin').where({
+        adminID: wx.getStorageSync('openid')
+    }).get({
+        success: (res) => {
+            this.setData({
+                admin: !!res.data.length
+            })
+        }
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad(options) {
-      if (wx.getUserProfile) {
+  onLoad: function (options) {
+        if (wx.getUserProfile) {
+            this.setData({
+                canIUseGetUserProfile: true
+            })
+        }
+        // wx.showLoading({
+        //   title: '加载中',
+        // })
+        const userInfo = wx.getStorageSync('userInfo');
         this.setData({
-            canIUseGetUserProfile: true
+            hasUserInfo: !!userInfo,
+            userInfo: userInfo,
         })
-      }
-      const userInfo = wx.getStorageSync('userInfo');
-      this.setData({
-          hasUserInfo: !!userInfo,
-          userInfo: userInfo,
-      })
-  },
+        let personReceiveState = '';
+        this.getAdminPower();
+        db.collection('orderReceive').where({
+            _openid: wx.getStorageSync('openid')
+        }).get({
+            success: (res) => {
+                const {
+                    data
+                } = res;
+                if (data.length) {
+                    for (let i = 0; i < data.length; i++) {
+                        if (data[i].state === '通过') {
+                            personReceiveState = 'success';
+                            break;
+                        } else if (data[i].state === '不通过') {
+                            personReceiveState = 'fail';
+                        } else {
+                            personReceiveState = 'loading';
+                            break;
+                        }
+                    }
+                } else {
+                    personReceiveState = 'null';
+                }
+                this.setData({
+                    personReceiveState,
+                })
+                wx.hideLoading();
+            }
+        })
+    },
 
   /**
    * 生命周期函数--监听页面初次渲染完成

@@ -58,7 +58,7 @@ Page({
   },
 
   selectAddress() {
-    wx.setStorageSync('urlNow', 'helpMeGive')
+    wx.setStorageSync('urlNow', 'otherHelp')
     wx.redirectTo({
       url: '../address/address',
     })

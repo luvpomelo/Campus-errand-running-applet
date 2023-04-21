@@ -99,7 +99,14 @@ Page({
         wx.showToast({
           title: '发布成功',
         })
+      },
+      fail: (res) => {
+        wx.showToast({
+          icon: 'none',
+          title: '发布失败',
+        })
       }
+      
     })
   },
 

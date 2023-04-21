@@ -1,6 +1,6 @@
+import { getTimeNow } from '../../utils/index';
 const db = wx.cloud.database();
 Page({
-
   /**
    * 页面的初始数据
    */
