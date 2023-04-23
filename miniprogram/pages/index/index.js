@@ -89,7 +89,7 @@ Page({
             openid
           } = res.result;
           wx.setStorageSync('openid', openid);
-        }
+        },
       })
     }
   },

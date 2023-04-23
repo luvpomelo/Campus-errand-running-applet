@@ -86,6 +86,13 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "审核接单员",
+          "pathName": "pages/orderReceiver/orderReceiver",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

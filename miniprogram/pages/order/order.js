@@ -88,7 +88,7 @@ Page({
     wx.showLoading({
       title: '加载中',
     })
-    db.collection('orderReceive').where({
+    db.collection('orderReceive').orderBy('createTime', 'desc').where({
       _openid: wx.getStorageSync('openid')
     }).get({
       success: (res) => {
@@ -285,7 +285,7 @@ Page({
 
 
     await wx.cloud.callFunction({
-      name: 'updateReceiver',
+      name: 'updateReceive',
       data: {
         _id,
         allMoney,
