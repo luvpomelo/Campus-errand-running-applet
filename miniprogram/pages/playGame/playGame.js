@@ -48,6 +48,7 @@ Page({
         },
         // 用户信息
         userInfo,
+        receivePerson:'',
         // 手机号
         phone: wx.getStorageSync('phone'),
         createTime: db.serverDate()

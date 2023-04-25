@@ -75,7 +75,7 @@ Page({
     })
   },
 
-  // 获取我帮助的订单信息 
+  // 获取我帮助过的订单信息 
   getMyHelpOrder() {
     const userInfo = wx.getStorageSync('userInfo');
     if (!userInfo) {
@@ -88,13 +88,17 @@ Page({
     wx.showLoading({
       title: '加载中',
     })
-    db.collection('orderReceive').orderBy('createTime', 'desc').where({
+    db.collection('orderReceive')
+    // .orderBy('createTime', 'desc')
+    .where({
+      //查询已收到的订单,按创建时间倒序排序
       _openid: wx.getStorageSync('openid')
     }).get({
       success: (res) => {
         const {
           data
         } = res;
+        console.log(data[0].allMoney);
         this.setData({
           helpTotalMoeny: data[0].allMoney,
           helpTotalNum: data[0].allCount
@@ -105,7 +109,6 @@ Page({
         wx.hideLoading();
       }
     })
-
   },
 
   // 我帮助的订单单数总和
@@ -230,6 +233,7 @@ Page({
       const {
         _id
       } = item;
+      console.log("this.data.openid"+this.data.openid);
       wx.cloud.callFunction({
         name: 'updateReceive',
         data: {
@@ -258,10 +262,12 @@ Page({
     }
   },
 
+  //完成订单
   async toFinish(e) {
     wx.showLoading({
       title: '加载中',
     })
+
     const {
       item
     } = e.currentTarget.dataset;
@@ -271,29 +277,34 @@ Page({
       money
     } = item;
     
-
+    
+    //更改接单员状态
+    console.log(receivePerson);
     const result = await db.collection('orderReceive').where({
       _openid: receivePerson
     }).get();
-    let data = result.data[0];
+    //得到_openid等于receivePerson的结果集result
+    let data = result.data[0];//将第一项赋值给data
+    console.log(data);//拿到空的data
     data.allMoney += money;
     data.allCount += 1;
     item.state = '已完成';
     item.stateColor = this.formatState(item.state)
     data.allOrder.push(item);
-    const { _id, allCount, allMoney, allOrder } = data;
+    const { _id, allCount, allMoney } = data;
 
 
+    //将各个属性提交数据库
     await wx.cloud.callFunction({
-      name: 'updateReceive',
+      name: 'updateReceiver',      
       data: {
         _id,
         allMoney,
-        allCount,
-        allOrder
+        allCount
       },
     });
 
+    //更改订单状态
     await db.collection('order').doc(orderID).update({
       data: {
         state: '已完成'
@@ -302,10 +313,9 @@ Page({
 
     this.getMyOrder();
     wx.hideLoading();
-
   },
 
-  formatInfo(orderInfo) {
+  formatInfo(orderInfo) {//格式化订单信息为字符串
     const {
       name,
       info,
