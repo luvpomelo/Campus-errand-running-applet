@@ -15,9 +15,11 @@ Page({
       title: '加载中',
     })
     const { item: { _id }, name } = e.currentTarget.dataset;
-    db.collection('orderReceive').doc(_id).update({
-      data: {
-        state: name,
+    wx.cloud.callFunction({
+      name:'toExamine',
+      data:{
+        _id,
+        state:name,
         examinePerson: wx.getStorageSync('openid') 
       },
       success: (res) => {
@@ -25,6 +27,16 @@ Page({
         wx.hideLoading();
       }
     })
+    // db.collection('orderReceive').doc(_id).update({
+    //   data: {
+    //     state: name,
+    //     examinePerson: wx.getStorageSync('openid') 
+    //   },
+    //   success: (res) => {
+    //     this.onLoad();
+    //     wx.hideLoading();
+    //   }
+    // })
   },
 
   /**

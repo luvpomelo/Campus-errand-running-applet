@@ -231,8 +231,16 @@ Page({
         item
       } = e.currentTarget.dataset;
       const {
-        _id
+        _id,
+        _openid
       } = item;
+      if(_openid === wx.getStorageSync('openid')){
+         wx.showToast({
+           title: '无法接单',
+           icon: 'none'
+         });
+         return;
+      }
       console.log("this.data.openid"+this.data.openid);
       wx.cloud.callFunction({
         name: 'updateReceive',
