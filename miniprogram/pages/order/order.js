@@ -423,11 +423,13 @@ Page({
       title: '加载中',
     })
     this.getPersonPower();
-    db.collection('order').orderBy('createTime', 'desc').get({
+    wx.cloud.callFunction({
+      name: "getAllOrders",
+    // db.collection('order').orderBy('createTime', 'desc').get({
       success: (res) => {
         const {
           data
-        } = res;
+        } = res.result;
         console.log(data);
         data.forEach(item => {
           if (item.name === "快递代取" && item.info.expressCode) {
